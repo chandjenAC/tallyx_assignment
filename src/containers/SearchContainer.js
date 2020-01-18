@@ -10,6 +10,7 @@ const SearchContainer = () => {
   const [currency, setCurrency] = useState(null);
   const [amountRange, setAmountRange] = useState({ from: "", to: "" });
   const [dateRange, setDateRange] = useState({ from: "", to: "" });
+  const [filteredData, setFilteredData] = useState(null);
 
   useEffect(() => {
     if (amountRange.from !== "" && amountRange.from !== 0)
@@ -44,13 +45,39 @@ const SearchContainer = () => {
   };
 
   const handleSubmitSearch = () => {
-    console.log("sbmitting");
+    let filteredByCurrency = data.filter(o => o.ccy === currency);
+    console.log("filtered data by currency", filteredByCurrency);
+    let from = amountRange.from.replace(/\,/g, "");
+    let to = amountRange.to.replace(/\,/g, "");
+
+    console.log("fro amounnt", from);
+    console.log("amounnt to", to);
+    let filteredByAmount = filteredByCurrency.filter(
+      o => o.invoiceAmount > from && o.invoiceAmount < to
+    );
+
+    console.log("filtered data by ammouunt", filteredByAmount);
+
+    let fromDate = new Date(dateRange.from).getTime();
+    let toDate = new Date(dateRange.to).getTime();
+
+    let filteredByDate = filteredByAmount.filter(o => {
+      let date =
+        o.invoiceDate.slice(6, 10) +
+        o.invoiceDate.slice(2, 6) +
+        o.invoiceDate.slice(0, 1);
+      console.log("slice test", date);
+      let time = new Date(date).getTime();
+      return fromDate < time && time < toDate;
+    });
+
+    console.log("filtered data", filteredByDate);
+    setFilteredData(filteredByDate);
   };
 
   return (
     <div>
       <p className="search-title">Please select the required fields</p>
-
       <div className="search-bar">
         <SelectInput
           handleCurrencyChange={handleCurrencyChange}
@@ -70,12 +97,14 @@ const SearchContainer = () => {
           Search
         </button>
       </div>
-      <DisplaySearchResults
-        currency={currency}
-        amountRange={amountRange}
-        dateRange={dateRange}
-        data={data}
-      />
+      {filteredData && (
+        <DisplaySearchResults
+          currency={currency}
+          amountRange={amountRange}
+          dateRange={dateRange}
+          data={filteredData}
+        />
+      )}
     </div>
   );
 };

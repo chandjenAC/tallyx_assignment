@@ -1,5 +1,5 @@
 import React from "react";
-
+import SelectCurrencySymbol from "./SelectCurrencySymbol";
 const SelectInput = props => {
   // const symbol=props.currency==="USD"? "&#36;"
 
@@ -26,15 +26,7 @@ const SelectInput = props => {
         <option value="JPY">JPY</option>
         <option value="EUR">EUR</option>
       </select>
-      {props.currency === "USD" ? (
-        <p style={{ display: "inline", marginLeft: "16px" }}> &#36;</p>
-      ) : props.currency === "INR" ? (
-        <p style={{ display: "inline", marginLeft: "16px" }}> &#8377;</p>
-      ) : props.currency === "EUR" ? (
-        <p style={{ display: "inline", marginLeft: "16px" }}> &#8364;</p>
-      ) : props.currency === "JPY" ? (
-        <p style={{ display: "inline", marginLeft: "16px" }}> &#165;</p>
-      ) : null}
+      <SelectCurrencySymbol currency={props.currency} />
     </div>
   );
 };

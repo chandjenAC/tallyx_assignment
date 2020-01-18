@@ -11,7 +11,7 @@ const DateRange = props => {
   const onBlur = e => {
     e.currentTarget.type = "text";
   };
-  //   console.log("date", dateRange);
+  
   return (
     <div
       style={{
