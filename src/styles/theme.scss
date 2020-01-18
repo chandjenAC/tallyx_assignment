@@ -1,0 +1,41 @@
+$primaryColor: #e8e9ea;
+$primaryColorDark: #d3d8dd;
+$secondaryColorDark: #1f242d;
+$secondaryColor: #262d38;
+$secondaryColorLight: #343a42;
+$backgroundColor: #3395f7;
+@font-face {
+  font-family: "brandon";
+  src: url("../fonts/brandon/Brandon_med.woff") format("woff");
+}
+@font-face {
+  font-family: "effra-light";
+  font-style: normal;
+  font-weight: normal;
+  src: url("../fonts/effra/Effra Light.woff") format("woff");
+}
+
+@font-face {
+  font-family: "effra-medium";
+  font-style: normal;
+  font-weight: normal;
+  src: url("../fonts/effra/Effra Medium.woff") format("woff");
+}
+::-webkit-scrollbar {
+  position: relative;
+  z-index: -99999;
+  width: 10px;
+}
+
+::-webkit-scrollbar-track { 
+  background: #d3d8dd;
+}
+
+::-webkit-scrollbar-thumb {
+  transition: 250ms cubic-bezier(0.285, 0.105, 0.465, 1.015);
+  background: #262d38;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #3395f7;
+}
