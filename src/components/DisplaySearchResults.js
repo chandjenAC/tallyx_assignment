@@ -1,10 +1,10 @@
 import React from "react";
 import { addCommas } from "../utils/FormatCurrency";
 import "../styles/displaySearchResults.scss";
-import SelectCurrencySymbol from "./SelectCurrencySymbol";
+import SelectCurrencySymbol from "../utils/SelectCurrencySymbol";
 
 const DisplaySearchResults = props => {
-  const { currency, amountRange, dateRange } = props;
+  const { currency, amountRange, dateRange, data } = props;
   const tableColumnHeadings = [
     "Invoice ID",
     "Reference",
@@ -16,19 +16,14 @@ const DisplaySearchResults = props => {
     "Invoice Date"
   ];
 
-  return (
+  return data.length > 0 ? (
     <div className="container">
       <p className="search-result-title">
         {currency} invoices with value between {amountRange.from}
-        <SelectCurrencySymbol
-          currency={currency}
-        />{" "}
-        --
+        <SelectCurrencySymbol currency={currency} /> --
         {amountRange.to}
-        <SelectCurrencySymbol
-          currency={currency}
-        />{" "}
-        maturing between {dateRange.from} and {dateRange.to}
+        <SelectCurrencySymbol currency={currency} /> maturing between{" "}
+        {dateRange.from} and {dateRange.to}
       </p>
       <div className="responsiveTbl">
         <table>
@@ -40,7 +35,7 @@ const DisplaySearchResults = props => {
             </tr>
           </thead>
           <tbody>
-            {props.data.map(data => {
+            {data.map(data => {
               return (
                 <tr key={data.invoiceId}>
                   <td>{data.invoiceId}</td>
@@ -58,6 +53,8 @@ const DisplaySearchResults = props => {
         </table>
       </div>
     </div>
+  ) : (
+    <div style={{ marginTop: "20px" }}>No results found</div>
   );
 };
 

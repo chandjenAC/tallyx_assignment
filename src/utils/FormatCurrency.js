@@ -13,7 +13,7 @@ export function formatCurrency(nStr, format) {
     } else return nStr.slice(0, -1);
   }
   nStr = nStr.toString();
-  nStr = nStr.replace(/\,/g, "");
+  nStr = nStr.replace(/,/g, "");
   nStr = parseInt(nStr, 10);
   if (!isNaN(nStr)) {
     return new Intl.NumberFormat(format ? format : "en-IN").format(nStr);
@@ -24,15 +24,13 @@ export function addCommas(nStr, ccy) {
   switch (ccy) {
     case "USD":
       return new Intl.NumberFormat("en-US").format(nStr);
-      break;
     case "EUR":
       return new Intl.NumberFormat("de-DE").format(nStr);
-      break;
     case "INR":
       return new Intl.NumberFormat("en-IN").format(nStr);
-      break;
     case "JPY":
       return new Intl.NumberFormat("ja-JP").format(nStr);
-      break;
+    default:
+      return null;
   }
 }

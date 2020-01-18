@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-import formatCurrency from "../utils/FormatCurrency";
+import React from "react";
 
 const DateRange = props => {
   const { dateRange, handleDateChange } = props;
@@ -11,7 +10,7 @@ const DateRange = props => {
   const onBlur = e => {
     e.currentTarget.type = "text";
   };
-  
+
   return (
     <div
       style={{
@@ -25,7 +24,6 @@ const DateRange = props => {
         {" "}
         <p style={{ display: "inline", padding: "16px" }}>Maturity Date : </p>
       </div>
-
       <div>
         <input
           type="text"

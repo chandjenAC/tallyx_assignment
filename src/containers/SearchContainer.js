@@ -6,6 +6,7 @@ import DisplaySearchResults from "../components/DisplaySearchResults";
 import "../styles/searchContainer.scss";
 import { formatCurrency } from "../utils/FormatCurrency";
 import data from "../data/data.json";
+
 const SearchContainer = () => {
   const [currency, setCurrency] = useState(null);
   const [amountRange, setAmountRange] = useState({ from: "", to: "" });
@@ -23,7 +24,7 @@ const SearchContainer = () => {
         ...prevValues,
         to: formatCurrency(amountRange.to, currency)
       }));
-  }, [currency]);
+  }, [currency, amountRange.from, amountRange.to]);
 
   const handleCurrencyChange = value => {
     console.log(value);
@@ -46,32 +47,21 @@ const SearchContainer = () => {
 
   const handleSubmitSearch = () => {
     let filteredByCurrency = data.filter(o => o.ccy === currency);
-    console.log("filtered data by currency", filteredByCurrency);
-    let from = amountRange.from.replace(/\,/g, "");
-    let to = amountRange.to.replace(/\,/g, "");
-
-    console.log("fro amounnt", from);
-    console.log("amounnt to", to);
+    let from = amountRange.from.replace(/,/g, "");
+    let to = amountRange.to.replace(/,/g, "");
     let filteredByAmount = filteredByCurrency.filter(
       o => o.invoiceAmount > from && o.invoiceAmount < to
     );
-
-    console.log("filtered data by ammouunt", filteredByAmount);
-
     let fromDate = new Date(dateRange.from).getTime();
     let toDate = new Date(dateRange.to).getTime();
-
     let filteredByDate = filteredByAmount.filter(o => {
       let date =
         o.invoiceDate.slice(6, 10) +
         o.invoiceDate.slice(2, 6) +
         o.invoiceDate.slice(0, 1);
-      console.log("slice test", date);
       let time = new Date(date).getTime();
       return fromDate < time && time < toDate;
     });
-
-    console.log("filtered data", filteredByDate);
     setFilteredData(filteredByDate);
   };
 

@@ -1,8 +1,7 @@
 import React from "react";
-import SelectCurrencySymbol from "./SelectCurrencySymbol";
-const SelectInput = props => {
-  // const symbol=props.currency==="USD"? "&#36;"
+import SelectCurrencySymbol from "../utils/SelectCurrencySymbol";
 
+const SelectInput = props => {
   return (
     <div
       style={{
@@ -26,7 +25,9 @@ const SelectInput = props => {
         <option value="JPY">JPY</option>
         <option value="EUR">EUR</option>
       </select>
-      <SelectCurrencySymbol currency={props.currency} />
+      <div style={{ marginLeft: "12px" }}>
+        <SelectCurrencySymbol currency={props.currency} />
+      </div>
     </div>
   );
 };

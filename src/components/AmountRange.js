@@ -1,9 +1,7 @@
-import React, { useState } from "react";
-import formatCurrency from "../utils/FormatCurrency";
+import React from "react";
 
 const AmountRange = props => {
   const { amountRange, handleAmountChange } = props;
-  //   console.log("ammotn", amountRange);
 
   return (
     <div
