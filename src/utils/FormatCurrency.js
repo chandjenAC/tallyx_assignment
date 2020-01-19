@@ -3,9 +3,9 @@ export function formatCurrency(nStr, format) {
   if (decimal.length - 1 > 0) {
     if (!isNaN(decimal[1])) {
       if (
-        ((format === "en-US" || format === "en-IN") && decimal[1].length > 2) ||
-        (format === "de-DE" && decimal[1].length > 3) ||
-        (format === "ja-JP" && decimal[1].length === 0)
+        ((format === "USD" || format === "INR") && decimal[1].length > 2) ||
+        (format === "EUR" && decimal[1].length > 3) ||
+        (format === "JPY" && decimal[1].length === 0)
       ) {
         return nStr.slice(0, -1);
       }
@@ -16,7 +16,15 @@ export function formatCurrency(nStr, format) {
   nStr = nStr.replace(/,/g, "");
   nStr = parseInt(nStr, 10);
   if (!isNaN(nStr)) {
-    return new Intl.NumberFormat(format ? format : "en-IN").format(nStr);
+    return new Intl.NumberFormat(
+      format === "USD"
+        ? "en-US"
+        : format === "EUR"
+        ? "en-FR"
+        : format === "JPY"
+        ? "ja-JP"
+        : "en-IN"
+    ).format(nStr);
   } else return 0;
 }
 
@@ -25,7 +33,7 @@ export function addCommas(nStr, ccy) {
     case "USD":
       return new Intl.NumberFormat("en-US").format(nStr);
     case "EUR":
-      return new Intl.NumberFormat("de-DE").format(nStr);
+      return new Intl.NumberFormat("en-FR").format(nStr);
     case "INR":
       return new Intl.NumberFormat("en-IN").format(nStr);
     case "JPY":

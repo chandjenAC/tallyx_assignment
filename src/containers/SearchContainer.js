@@ -47,22 +47,42 @@ const SearchContainer = () => {
 
   const handleSubmitSearch = () => {
     let filteredByCurrency = data.filter(o => o.ccy === currency);
-    let from = amountRange.from.replace(/,/g, "");
-    let to = amountRange.to.replace(/,/g, "");
-    let filteredByAmount = filteredByCurrency.filter(
-      o => o.invoiceAmount > from && o.invoiceAmount < to
-    );
-    let fromDate = new Date(dateRange.from).getTime();
-    let toDate = new Date(dateRange.to).getTime();
-    let filteredByDate = filteredByAmount.filter(o => {
-      let date =
-        o.invoiceDate.slice(6, 10) +
-        o.invoiceDate.slice(2, 6) +
-        o.invoiceDate.slice(0, 1);
-      let time = new Date(date).getTime();
-      return fromDate < time && time < toDate;
-    });
-    setFilteredData(filteredByDate);
+    setFilteredData(filteredByCurrency);
+    // let from = amountRange.from.replace(/,/g, "");
+    // let to = amountRange.to.replace(/,/g, "");
+    // let filteredByAmount = filteredByCurrency.filter(
+    //   o => o.invoiceAmount > from && o.invoiceAmount < to
+    // );
+    // setFilteredData(filteredByAmount);
+    // let fromDate = new Date(dateRange.from).getTime();
+    // let toDate = new Date(dateRange.to).getTime();
+    // let filteredByDate = filteredByAmount.filter(o => {
+    //   let date =
+    //     o.invoiceDate.slice(6, 10) +
+    //     o.invoiceDate.slice(2, 6) +
+    //     o.invoiceDate.slice(0, 1);
+    //   let time = new Date(date).getTime();
+    //   return fromDate < time && time < toDate;
+    // });
+
+    // // let filtered = data.filter(o => {
+    // //   let date =
+    // //     o.invoiceDate.slice(6, 10) +
+    // //     o.invoiceDate.slice(2, 6) +
+    // //     o.invoiceDate.slice(0, 1);
+    // //   let time = new Date(date).getTime();
+    // //   return (
+    // //     o.ccy === currency && o.invoiceAmount > from && o.invoiceAmount < to
+    // //   );
+    // //});
+    // console.log("fromAmmount", from);
+    // console.log("toAmounngt", to);
+    // console.log("date.from", dateRange.from);
+    // console.log("date tpo", dateRange.to);
+    // console.log("fromDate", fromDate);
+    // console.log("toDate", toDate);
+    // // console.log("filtered", filtered);
+    // setFilteredData(filteredByDate);
   };
 
   return (
