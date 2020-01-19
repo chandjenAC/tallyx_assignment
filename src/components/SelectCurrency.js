@@ -1,7 +1,7 @@
 import React from "react";
 import SelectCurrencySymbol from "../utils/SelectCurrencySymbol";
 
-const SelectInput = props => {
+const SelectCurrency = props => {
   return (
     <div
       style={{
@@ -16,8 +16,9 @@ const SelectInput = props => {
       <select
         onChange={e => props.handleCurrencyChange(e.target.value)}
         style={{ minWidth: "150px", padding: "6px" }}
+        defaultValue={"DEFAULT"}
       >
-        <option value="" disabled selected>
+        <option value="DEFAULT" disabled>
           Select Currency
         </option>
         <option value="USD">USD</option>
@@ -32,4 +33,4 @@ const SelectInput = props => {
   );
 };
 
-export default SelectInput;
+export default SelectCurrency;

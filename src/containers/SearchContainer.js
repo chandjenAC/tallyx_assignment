@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import SelectInput from "../components/SelectInput";
+import SelectCurrency from "../components/SelectCurrency";
 import AmountRange from "../components/AmountRange";
 import DateRange from "../components/DateRange";
 import DisplaySearchResults from "../components/DisplaySearchResults";
@@ -26,6 +26,16 @@ const SearchContainer = () => {
       }));
   }, [currency, amountRange.from, amountRange.to]);
 
+  useEffect(() => {
+    setFilteredData(null);
+  }, [
+    currency,
+    amountRange.from,
+    amountRange.to,
+    dateRange.from,
+    dateRange.to
+  ]);
+
   const handleCurrencyChange = value => {
     setCurrency(value);
   };
@@ -46,8 +56,8 @@ const SearchContainer = () => {
 
   const handleSubmitSearch = () => {
     let filteredByCurrency = data.filter(o => o.ccy === currency);
-    let from = amountRange.from.replace(/,/g, "");
-    let to = amountRange.to.replace(/,/g, "");
+    let from = amountRange.from !== 0 ? amountRange.from.replace(/,/g, "") : 0;
+    let to = amountRange.to !== 0 ? amountRange.to.replace(/,/g, "") : 0;
     let filteredByAmount = filteredByCurrency.filter(
       o => o.invoiceAmount > from && o.invoiceAmount < to
     );
@@ -55,9 +65,9 @@ const SearchContainer = () => {
     let toDate = new Date(dateRange.to).getTime();
     let filteredByDate = filteredByAmount.filter(o => {
       let date =
-        o.invoiceDate.slice(6, 10) +
-        o.invoiceDate.slice(2, 6) +
-        o.invoiceDate.slice(0, 1);
+        o.maturityDate.slice(6, 10) +
+        o.maturityDate.slice(2, 6) +
+        o.maturityDate.slice(0, 1);
       let time = new Date(date).getTime();
       return fromDate < time && time < toDate;
     });
@@ -68,7 +78,7 @@ const SearchContainer = () => {
     <div>
       <p className="search-title">Please select the required fields</p>
       <div className="search-bar">
-        <SelectInput
+        <SelectCurrency
           handleCurrencyChange={handleCurrencyChange}
           currency={currency}
         />
@@ -77,7 +87,6 @@ const SearchContainer = () => {
           handleAmountChange={handleAmountChange}
         />
         <DateRange dateRange={dateRange} handleDateChange={handleDateChange} />
-
         <button
           onClick={() => {
             handleSubmitSearch();

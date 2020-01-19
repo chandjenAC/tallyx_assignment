@@ -2,13 +2,13 @@ import React from "react";
 
 const SelectCurrencySymbol = props => {
   return props.currency === "USD" ? (
-    <p style={{ display: "inline" }}> &#36;</p>
+    <> &#36;</>
   ) : props.currency === "INR" ? (
-    <p style={{ display: "inline" }}> &#8377;</p>
+    <> &#8377;</>
   ) : props.currency === "EUR" ? (
-    <p style={{ display: "inline" }}> &#8364;</p>
+    <> &#8364;</>
   ) : props.currency === "JPY" ? (
-    <p style={{ display: "inline" }}> &#165;</p>
+    <> &#165;</>
   ) : null;
 };
 
