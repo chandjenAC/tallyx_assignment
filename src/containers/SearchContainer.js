@@ -55,23 +55,26 @@ const SearchContainer = () => {
   };
 
   const handleSubmitSearch = () => {
-    let filteredByCurrency = data.filter(o => o.ccy === currency);
     let from = amountRange.from !== 0 ? amountRange.from.replace(/,/g, "") : 0;
     let to = amountRange.to !== 0 ? amountRange.to.replace(/,/g, "") : 0;
-    let filteredByAmount = filteredByCurrency.filter(
-      o => o.invoiceAmount > from && o.invoiceAmount < to
-    );
     let fromDate = new Date(dateRange.from).getTime();
     let toDate = new Date(dateRange.to).getTime();
-    let filteredByDate = filteredByAmount.filter(o => {
+
+    let result = data.filter(function(v, i) {
       let date =
-        o.maturityDate.slice(6, 10) +
-        o.maturityDate.slice(2, 6) +
-        o.maturityDate.slice(0, 1);
+        v["maturityDate"].slice(6, 10) +
+        v["maturityDate"].slice(2, 6) +
+        v["maturityDate"].slice(0, 1);
       let time = new Date(date).getTime();
-      return fromDate < time && time < toDate;
+      return (
+        v["ccy"] === currency &&
+        v["invoiceAmount"] > from &&
+        v["invoiceAmount"] < to &&
+        fromDate < time &&
+        time < toDate
+      );
     });
-    setFilteredData(filteredByDate);
+    setFilteredData(result);
   };
 
   return (
