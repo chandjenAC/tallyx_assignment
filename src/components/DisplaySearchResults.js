@@ -1,6 +1,5 @@
 import React from "react";
 import { addCommas } from "../utils/FormatCurrency";
-import "../styles/displaySearchResults.scss";
 import SelectCurrencySymbol from "../utils/SelectCurrencySymbol";
 
 const DisplaySearchResults = props => {

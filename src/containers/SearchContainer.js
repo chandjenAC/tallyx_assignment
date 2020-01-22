@@ -3,7 +3,6 @@ import SelectCurrency from "../components/SelectCurrency";
 import AmountRange from "../components/AmountRange";
 import DateRange from "../components/DateRange";
 import DisplaySearchResults from "../components/DisplaySearchResults";
-import "../styles/searchContainer.scss";
 import { formatCurrency } from "../utils/FormatCurrency";
 import data from "../data/data.json";
 
@@ -59,7 +58,6 @@ const SearchContainer = () => {
     let to = amountRange.to !== 0 ? amountRange.to.replace(/,/g, "") : 0;
     let fromDate = new Date(dateRange.from).getTime();
     let toDate = new Date(dateRange.to).getTime();
-
     let result = data.filter(function(v, i) {
       let date =
         v["maturityDate"].slice(6, 10) +
@@ -95,11 +93,10 @@ const SearchContainer = () => {
             handleSubmitSearch();
           }}
           disabled={
-            currency === null ||
-            amountRange.from === "" ||
-            amountRange.to === "" ||
-            dateRange.from === "" ||
-            dateRange.to === ""
+            (currency === null && amountRange.from,
+            amountRange.to,
+            dateRange.from,
+            dateRange.to === "")
           }
           style={{ minWidth: "150px", padding: "6px", margin: "16px" }}
         >
