@@ -4,6 +4,7 @@ import AmountRange from "../components/AmountRange";
 import DateRange from "../components/DateRange";
 import DisplaySearchResults from "../components/DisplaySearchResults";
 import { formatCurrency } from "../utils/FormatCurrency";
+import { reverseformatDate } from "../utils/FormatDate";
 import data from "../data/data.json";
 
 const SearchContainer = () => {
@@ -59,10 +60,7 @@ const SearchContainer = () => {
     let fromDate = new Date(dateRange.from).getTime();
     let toDate = new Date(dateRange.to).getTime();
     let result = data.filter(function(v, i) {
-      let date =
-        v["maturityDate"].slice(6, 10) +
-        v["maturityDate"].slice(2, 6) +
-        v["maturityDate"].slice(0, 1);
+      let date = reverseformatDate(v["maturityDate"]);
       let time = new Date(date).getTime();
       return (
         v["ccy"] === currency &&

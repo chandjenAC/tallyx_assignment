@@ -1,5 +1,6 @@
 import React from "react";
 import { addCommas } from "../utils/FormatCurrency";
+import { formatDate } from "../utils/FormatDate";
 import SelectCurrencySymbol from "../utils/SelectCurrencySymbol";
 
 const DisplaySearchResults = props => {
@@ -22,7 +23,7 @@ const DisplaySearchResults = props => {
         <SelectCurrencySymbol currency={currency} /> --
         {amountRange.to}
         <SelectCurrencySymbol currency={currency} /> maturing between{" "}
-        {dateRange.from} and {dateRange.to}
+        {formatDate(dateRange.from)} and {formatDate(dateRange.to)}
       </p>
       <div className="responsiveTbl">
         <table>
