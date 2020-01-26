@@ -1,4 +1,4 @@
-export function reverseformatDate(date) {
+export function reverseFormatDate(date) {
   return date.slice(6, 10) + date.slice(2, 6) + date.slice(0, 1);
 }
 
