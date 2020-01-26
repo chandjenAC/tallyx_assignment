@@ -16,29 +16,18 @@ export function formatCurrency(nStr, format) {
   nStr = nStr.replace(/,/g, "");
   nStr = parseInt(nStr, 10);
   if (!isNaN(nStr)) {
-    return new Intl.NumberFormat(
-      format === "USD"
-        ? "en-US"
-        : format === "EUR"
-        ? "en-FR"
-        : format === "JPY"
-        ? "ja-JP"
-        : "en-IN"
-    ).format(nStr);
+    return addCommas(nStr, format);
   } else return 0;
 }
 
-export function addCommas(nStr, ccy) {
-  switch (ccy) {
-    case "USD":
-      return new Intl.NumberFormat("en-US").format(nStr);
-    case "EUR":
-      return new Intl.NumberFormat("en-FR").format(nStr);
-    case "INR":
-      return new Intl.NumberFormat("en-IN").format(nStr);
-    case "JPY":
-      return new Intl.NumberFormat("ja-JP").format(nStr);
-    default:
-      return null;
-  }
+export function addCommas(nStr, format) {
+  return new Intl.NumberFormat(
+    format === "USD"
+      ? "en-US"
+      : format === "EUR"
+      ? "en-FR"
+      : format === "JPY"
+      ? "ja-JP"
+      : "en-IN"
+  ).format(nStr);
 }
