@@ -19,11 +19,10 @@ const DisplaySearchResults = props => {
   return data.length > 0 ? (
     <div className="container">
       <p className="search-result-title">
-        {currency} invoices with value between {amountRange.from}
-        <SelectCurrencySymbol currency={currency} /> --
-        {amountRange.to}
-        <SelectCurrencySymbol currency={currency} /> maturing between{" "}
-        {formatDate(dateRange.from)} and {formatDate(dateRange.to)}
+        {currency} invoices with value between{" "}
+        <SelectCurrencySymbol currency={currency} /> {amountRange.from} --
+        <SelectCurrencySymbol currency={currency} /> {amountRange.to} maturing
+        between {formatDate(dateRange.from)} and {formatDate(dateRange.to)}
       </p>
       <div className="responsiveTbl">
         <table>

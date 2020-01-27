@@ -3,7 +3,10 @@ import SelectCurrency from "../components/SelectCurrency";
 import AmountRange from "../components/AmountRange";
 import DateRange from "../components/DateRange";
 import DisplaySearchResults from "../components/DisplaySearchResults";
-import { formatCurrency } from "../utils/FormatCurrency";
+import {
+  formatCurrency,
+  formatCurrencyOnCurrencyChange
+} from "../utils/FormatCurrency";
 import { reverseFormatDate } from "../utils/FormatDate";
 import data from "../data/data.json";
 
@@ -17,14 +20,14 @@ const SearchContainer = () => {
     if (amountRange.from !== "" && amountRange.from !== 0)
       setAmountRange(prevValues => ({
         ...prevValues,
-        from: formatCurrency(amountRange.from, currency)
+        from: formatCurrencyOnCurrencyChange(amountRange.from, currency)
       }));
     if (amountRange.to !== "" && amountRange.to !== 0)
       setAmountRange(prevValues => ({
         ...prevValues,
-        to: formatCurrency(amountRange.to, currency)
+        to: formatCurrencyOnCurrencyChange(amountRange.to, currency)
       }));
-  }, [currency, amountRange.from, amountRange.to]);
+  }, [currency]);
 
   useEffect(() => {
     setFilteredData(null);
@@ -91,10 +94,11 @@ const SearchContainer = () => {
             handleSubmitSearch();
           }}
           disabled={
-            (currency === null && amountRange.from,
-            amountRange.to,
-            dateRange.from,
-            dateRange.to === "")
+            currency === null &&
+            (amountRange.from ||
+              amountRange.to ||
+              dateRange.from ||
+              dateRange.to === "")
           }
           style={{ minWidth: "150px", padding: "6px", margin: "16px" }}
         >
