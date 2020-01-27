@@ -1,4 +1,4 @@
-export function formatCurrency(amount, format) {
+export const formatCurrency = (amount, format) => {
   let decimal = amount.split(".");
   if (decimal.length > 1) {
     if (!isNaN(decimal[1])) {
@@ -18,9 +18,9 @@ export function formatCurrency(amount, format) {
   if (!isNaN(amount)) {
     return addCommas(amount, format);
   } else return 0;
-}
+};
 
-export function addCommas(amount, format) {
+export const addCommas = (amount, format) => {
   return new Intl.NumberFormat(
     format === "USD"
       ? "en-US"
@@ -30,9 +30,9 @@ export function addCommas(amount, format) {
       ? "ja-JP"
       : "en-IN"
   ).format(amount);
-}
+};
 
-export function formatCurrencyOnCurrencyChange(amount, format) {
+export const formatCurrencyOnCurrencyChange = (amount, format) => {
   if (format === "JPY") {
     let decimal = amount.split(".");
     amount = decimal[0];
@@ -43,4 +43,4 @@ export function formatCurrencyOnCurrencyChange(amount, format) {
   if (!isNaN(amount)) {
     return addCommas(amount, format);
   } else return 0;
-}
+};
