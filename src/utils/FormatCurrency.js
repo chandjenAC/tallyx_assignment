@@ -1,3 +1,15 @@
+export const addCommas = (amount, format) => {
+  return new Intl.NumberFormat(
+    format === "USD"
+      ? "en-US"
+      : format === "EUR"
+      ? "en-FR"
+      : format === "JPY"
+      ? "ja-JP"
+      : "en-IN"
+  ).format(amount);
+};
+
 export const formatCurrency = (amount, format) => {
   let decimal = amount.split(".");
   if (decimal.length > 1) {
@@ -17,19 +29,7 @@ export const formatCurrency = (amount, format) => {
   amount = parseInt(amount, 10);
   if (!isNaN(amount)) {
     return addCommas(amount, format);
-  } else return 0;
-};
-
-export const addCommas = (amount, format) => {
-  return new Intl.NumberFormat(
-    format === "USD"
-      ? "en-US"
-      : format === "EUR"
-      ? "en-FR"
-      : format === "JPY"
-      ? "ja-JP"
-      : "en-IN"
-  ).format(amount);
+  } else return "";
 };
 
 export const formatCurrencyOnCurrencyChange = (amount, format) => {
@@ -40,7 +40,5 @@ export const formatCurrencyOnCurrencyChange = (amount, format) => {
   amount = amount.toString();
   amount = amount.replace(/,/g, "");
   amount = parseFloat(amount, 10);
-  if (!isNaN(amount)) {
-    return addCommas(amount, format);
-  } else return 0;
+  return addCommas(amount, format);
 };

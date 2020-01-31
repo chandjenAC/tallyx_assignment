@@ -15,14 +15,15 @@ const SearchContainer = () => {
   const [amountRange, setAmountRange] = useState({ from: "", to: "" });
   const [dateRange, setDateRange] = useState({ from: "", to: "" });
   const [filteredData, setFilteredData] = useState(null);
+  const [searchButtonDisable, setSearchButtonDisable] = useState(false);
 
   useEffect(() => {
-    if (amountRange.from !== "" && amountRange.from !== 0)
+    if (amountRange.from)
       setAmountRange(prevValues => ({
         ...prevValues,
         from: formatCurrencyOnCurrencyChange(amountRange.from, currency)
       }));
-    if (amountRange.to !== "" && amountRange.to !== 0)
+    if (amountRange.to)
       setAmountRange(prevValues => ({
         ...prevValues,
         to: formatCurrencyOnCurrencyChange(amountRange.to, currency)
@@ -31,13 +32,18 @@ const SearchContainer = () => {
 
   useEffect(() => {
     setFilteredData(null);
-  }, [
-    currency,
-    amountRange.from,
-    amountRange.to,
-    dateRange.from,
-    dateRange.to
-  ]);
+  }, [currency, amountRange, dateRange]);
+
+  useEffect(() => {
+    if (
+      currency === null ||
+      [amountRange.from, amountRange.to, dateRange.from, dateRange.to].includes(
+        ""
+      )
+    ) {
+      setSearchButtonDisable(true);
+    } else setSearchButtonDisable(false);
+  }, [currency, amountRange, dateRange]);
 
   const handleCurrencyChange = value => {
     setCurrency(value);
@@ -93,13 +99,7 @@ const SearchContainer = () => {
           onClick={() => {
             handleSubmitSearch();
           }}
-          disabled={
-            currency === null &&
-            (amountRange.from ||
-              amountRange.to ||
-              dateRange.from ||
-              dateRange.to === "")
-          }
+          disabled={searchButtonDisable}
           style={{ minWidth: "150px", padding: "6px", margin: "16px" }}
         >
           Search

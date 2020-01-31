@@ -40,7 +40,9 @@ const DisplaySearchResults = props => {
                   <td>{data.invoiceId}</td>
                   <td>{data.reference}</td>
                   <td>{data.maturityDate} </td>
-                  <td>{addCommas(data.invoiceAmount, data.ccy)}</td>
+                  <td style={{ textAlign: "right" }}>
+                    {addCommas(data.invoiceAmount, data.ccy)}
+                  </td>
                   <td>{data.ccy}</td>
                   <td>{data.buyer}</td>
                   <td>{data.supplier}</td>
